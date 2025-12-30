@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>img.shred - Privacy-First Gallery Cleaner</title>
+    <meta name="description" content="Clean your photo library with img.shred. Find and remove duplicates, similar photos, screenshots, and large files. All processing happens locally on your device.">
+    <meta name="keywords" content="photo cleaner, duplicate photos, gallery cleaner, storage cleaner, iOS app, privacy">
+    <meta name="author" content="Tuğcan Topaloğlu">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="img.shred - Privacy-First Gallery Cleaner">
+    <meta property="og:description" content="Clean your photo library. Find duplicates, similar photos, and free up storage. All processing happens locally.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tugcantopaloglu.github.io/img-shred-app-ghpages/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #2a2a2a;
+            --primary: #00FF88;
+            --primary-dim: rgba(0, 255, 136, 0.1);
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --danger: #FF0040;
+            --accent: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--text);
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 32px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-dim);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 8vw, 72px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        h1 .highlight {
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary);
+            color: var(--bg);
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-dim);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Privacy Section */
+        .privacy-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .privacy-section h2 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 24px;
+        }
+
+        .privacy-section h2 span {
+            color: var(--primary);
+        }
+
+        .privacy-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 16px;
+        }
+
+        .privacy-badges {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .privacy-badge {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 16px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            nav a {
+                margin: 0 16px;
+            }
+
+            .hero {
+                padding: 80px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/img-shred-app-ghpages/" class="logo">IMG<span>.</span>SHRED</a>
+                <nav>
+                    <a href="/img-shred-app-ghpages/privacy/">PRIVACY</a>
+                    <a href="/img-shred-app-ghpages/terms/">TERMS</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="badge">PRIVACY-FIRST</div>
+                <h1>Clean Your <span class="highlight">Gallery</span><br>Free Your <span class="highlight">Storage</span></h1>
+                <p class="subtitle">
+                    Find and remove duplicate photos, similar images, screenshots, and large files.
+                    All processing happens locally on your device. Your photos never leave your phone.
+                </p>
+                <a href="https://apps.apple.com/app/img-shred" class="cta-button">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    Download on App Store
+                </a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>SMART DETECTION</h3>
+                        <p>Advanced perceptual hashing finds visually similar photos, not just exact duplicates. Detect burst photos, screenshots, and more.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>FAST SCANNING</h3>
+                        <p>Optimized algorithms scan thousands of photos in seconds. See estimated time remaining and continue using your phone while scanning.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>SWIPE TO CLEAN</h3>
+                        <p>Tinder-style interface makes cleaning fun. Swipe right to keep, left to delete. Review everything before permanent deletion.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>100% PRIVATE</h3>
+                        <p>All processing happens on-device. No cloud uploads, no data collection, no tracking. Your photos stay yours.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>STORAGE INSIGHTS</h3>
+                        <p>See exactly how much space you can free. Detailed breakdown by category: duplicates, similar, screenshots, large files.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h3>BEST PHOTO PICKER</h3>
+                        <p>Automatically identifies the best photo in each group based on resolution, brightness, and file size.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="privacy-section">
+            <div class="container">
+                <h2>Your Privacy <span>Matters</span></h2>
+                <p>
+                    img.shred is built with privacy as the foundation. We don't collect, store, or transmit any of your data.
+                    Everything happens locally on your device.
+                </p>
+                <div class="privacy-badges">
+                    <div class="privacy-badge">🔒 NO DATA COLLECTION</div>
+                    <div class="privacy-badge">📱 LOCAL PROCESSING ONLY</div>
+                    <div class="privacy-badge">🚫 NO CLOUD UPLOADS</div>
+                    <div class="privacy-badge">✅ NO TRACKING</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/img-shred-app-ghpages/privacy/">Privacy Policy</a>
+                <a href="/img-shred-app-ghpages/terms/">Terms of Service</a>
+            </div>
+            <p class="copyright">
+                © 2025 img.shred. Made by <a href="#">Tuğcan Topaloğlu</a>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
