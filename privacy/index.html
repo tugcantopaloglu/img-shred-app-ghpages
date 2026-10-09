@@ -16,7 +16,7 @@
             --primary-dim: rgba(0, 255, 136, 0.1);
             --text: #ffffff;
             --text-secondary: #888888;
-            --text-muted: #555555;
+            --text-muted: #888888;
         }
 
         * {
@@ -146,6 +146,15 @@
             text-decoration: none;
         }
 
+        main a {
+            text-decoration: underline;
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 4px;
+        }
+
         a:hover {
             text-decoration: underline;
         }
@@ -192,10 +201,10 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="/img-shred-app-ghpages/" class="logo">IMG<span>.</span>SHRED</a>
-                <nav>
-                    <a href="/img-shred-app-ghpages/">HOME</a>
-                    <a href="/img-shred-app-ghpages/terms/">TERMS</a>
+                <a href="../" class="logo">IMG<span>.</span>SHRED</a>
+                <nav aria-label="Site navigation">
+                    <a href="../">HOME</a>
+                    <a href="../terms/">TERMS</a>
                 </nav>
             </div>
         </div>
@@ -292,9 +301,9 @@
     <footer>
         <div class="container">
             <div class="footer-links">
-                <a href="/img-shred-app-ghpages/">Home</a>
-                <a href="/img-shred-app-ghpages/privacy/">Privacy Policy</a>
-                <a href="/img-shred-app-ghpages/terms/">Terms of Service</a>
+                <a href="../">Home</a>
+                <a href="../privacy/">Privacy Policy</a>
+                <a href="../terms/">Terms of Service</a>
             </div>
             <p class="copyright">
                 © 2025 img.shred. Made by Tuğcan Topaloğlu. All rights reserved.

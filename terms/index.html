@@ -16,7 +16,7 @@
             --primary-dim: rgba(0, 255, 136, 0.1);
             --text: #ffffff;
             --text-secondary: #888888;
-            --text-muted: #555555;
+            --text-muted: #888888;
             --warning: #FFD700;
             --warning-dim: rgba(255, 215, 0, 0.1);
         }
@@ -162,6 +162,15 @@
             text-decoration: none;
         }
 
+        main a {
+            text-decoration: underline;
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 4px;
+        }
+
         a:hover {
             text-decoration: underline;
         }
@@ -208,10 +217,10 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="/img-shred-app-ghpages/" class="logo">IMG<span>.</span>SHRED</a>
-                <nav>
-                    <a href="/img-shred-app-ghpages/">HOME</a>
-                    <a href="/img-shred-app-ghpages/privacy/">PRIVACY</a>
+                <a href="../" class="logo">IMG<span>.</span>SHRED</a>
+                <nav aria-label="Site navigation">
+                    <a href="../">HOME</a>
+                    <a href="../privacy/">PRIVACY</a>
                 </nav>
             </div>
         </div>
@@ -320,7 +329,7 @@
             <p>The App, including all content, features, and functionality (including but not limited to all information, software, text, displays, images, and the design, selection, and arrangement thereof), is owned by Tuğcan Topaloğlu and is protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
 
             <h2>12. Privacy</h2>
-            <p>Your use of the App is also governed by our <a href="/img-shred-app-ghpages/privacy/">Privacy Policy</a>, which is incorporated into these Terms by reference. Please review our Privacy Policy to understand our practices.</p>
+            <p>Your use of the App is also governed by our <a href="../privacy/">Privacy Policy</a>, which is incorporated into these Terms by reference. Please review our Privacy Policy to understand our practices.</p>
 
             <h2>13. Termination</h2>
             <p>We reserve the right to terminate or suspend your access to the App at any time, without notice, for any reason, including breach of these Terms. Upon termination, your right to use the App will immediately cease.</p>
@@ -357,9 +366,9 @@
     <footer>
         <div class="container">
             <div class="footer-links">
-                <a href="/img-shred-app-ghpages/">Home</a>
-                <a href="/img-shred-app-ghpages/privacy/">Privacy Policy</a>
-                <a href="/img-shred-app-ghpages/terms/">Terms of Service</a>
+                <a href="../">Home</a>
+                <a href="../privacy/">Privacy Policy</a>
+                <a href="../terms/">Terms of Service</a>
             </div>
             <p class="copyright">
                 © 2025 img.shred. Made by Tuğcan Topaloğlu. All rights reserved.
